@@ -4,11 +4,44 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Weather</title>
+    <title>Weather Forecast</title>
     <link rel="stylesheet" href="src/css/style.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+      crossorigin="anonymous"
+    />
   </head>
   <body>
-    
+    <div class="container">
+      <form>
+        <input type="text" placeholder="Enter city..." id="input-city" />
+        <input
+          class="btn btn-light"
+          type="Submit"
+          id="search"
+          value="🔍Search"
+        />
+      </form>
+      <div class="row">
+        <div class="col-9">
+          <p>7 day forecast - Kharkiv, UA as for 19:07</p>
+        </div>
+        <div class="col">°C | °F</div>
+      </div>
+
+      <h1 id="city-h1">Poltava</h1>
+      <h2><span id="weekday">Sun</span><span id="current-date">19</span></h2>
+      <h1>
+        <span id="current-temp">24</span>
+        <span id="current-units">°C</span> <br />⛅
+      </h1>
+      <p class="weather-data">
+        Humidity: <span id="humidity">35</span>%, Wind:
+        <span id="wind">5.36</span> m/c
+      </p>
+    </div>
     <script src="src/app.js"></script>
   </body>
 </html>
