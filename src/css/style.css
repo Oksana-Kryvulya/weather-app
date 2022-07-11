@@ -3,12 +3,12 @@ body {
   cursor: default;
 }
 h1 {
-  color: rgb(180, 10, 214);
+  color: #27296d;
   text-align: center;
   font-size: 40px;
 }
 h2 {
-  color: rgb(121, 121, 245);
+  color: #27296d;
   text-align: center;
 }
 h3 {
@@ -40,6 +40,7 @@ p {
   border: 1px solid #dadada;
   border-radius: 10px;
   background: #7695ce;
+  box-shadow: 3px 3px rgba(39, 39, 44, 0.2);
 }
 .flag {
   text-align: end;
@@ -50,7 +51,9 @@ p {
   border: 1px solid #dadada;
   border-radius: 10px;
   background: #7695ce;
+  box-shadow: 3px 3px rgba(39, 39, 44, 0.2);
 }
+
 .units {
   color: white;
 }
@@ -59,9 +62,19 @@ p {
   padding: 20px;
   border: 1px solid #dadada;
   border-radius: 10px;
-  background: #fffdca;
+  background: #f5c7f7;
 }
 .weather-data {
   text-align: center;
   color: rgb(37, 33, 33);
+}
+.active {
+  font-weight: bold;
+  cursor: default;
+}
+.hand:hover {
+  cursor: pointer;
+}
+.icon-image {
+  text-align: center;
 }

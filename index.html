@@ -13,11 +13,12 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="src/css/style.css" />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   </head>
   <body class="bg">
-    <div class="container weather-app">
-      <div class="input-window">
-        <form class="row g-3">
+    <div class="container weather-app mt-2 mt-sm-3 mt-md-5 mt-xl-5 pt-xl-5">
+      <div class="input-window mt-2">
+        <form id="input-city-form" class="row g-3">
           <div class="col-md-6">
             <input
               class="form-control input-lg"
@@ -29,7 +30,7 @@
           <div class="col">
             <input
               class="btn btn-light"
-              type="Submit"
+              type="submit"
               id="search"
               value="🔍Search"
             />
@@ -37,8 +38,8 @@
           <div class="col flag">
             <input
               class="btn btn-light"
-              type="Submit"
-              id="local"
+              type="submit"
+              id="location"
               value="🚩Local"
             />
           </div>
@@ -47,9 +48,18 @@
       <div class="base-window">
         <div class="row">
           <div class="col-10">
-            <p>7 day forecast - Kharkiv, UA as for 19:07</p>
+            <p class="weather-info">
+              7 day forecast - <span id="city"> Kharkiv</span>,
+              <span id="country"> UA </span> as for
+              <span id="current-time">10 : 50 am</span>
+            </p>
           </div>
-          <div class="col"><span class="units">°C | °F</span></div>
+          <div class="col">
+            <p class="units">
+              <span class="active" id="celsius">°C </span> |
+              <span class="hand" id="fahrenheit">°F</span>
+            </p>
+          </div>
         </div>
         <div class="current-weather">
           <h1 id="city-h1">Poltava</h1>
@@ -57,11 +67,11 @@
             <span id="weekday">Sun</span><span id="current-date">19</span>
           </h2>
           <h1>
-            ⛅
             <span id="current-temp">24</span>
             <span id="current-units">°C</span>
           </h1>
-          <h3>weather discription</h3>
+          <div class="icon-image"><img src="" alt="Clear" id="icon" /></div>
+          <h3 id="wether-description">weather discription</h3>
           <p class="weather-data">
             Humidity: <span id="humidity">35</span>%, Wind:
             <span id="wind">5.36</span> km/h
