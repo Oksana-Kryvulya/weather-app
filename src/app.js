@@ -13,10 +13,13 @@ function getBaseReverseGeoUrl() {
 }
 
 function updateCurrentWeather(currentData) {
-  console.log(currentData);
-  let temp = Math.round(currentData.temp);
-  let currentTemperatura = document.querySelector("#current-temp");
-  currentTemperatura.innerHTML = temp;
+  temp = currentData.temp;
+  let unit = document.querySelector("#celsius").classList.contains("active")
+    ? "celsius"
+    : "fahrenheit";
+  let currentTempetature = convertToUnits(temp, unit);
+  let currentTemperaturaElement = document.querySelector("#current-temp");
+  currentTemperaturaElement.innerHTML = currentTempetature;
   let weatherDescription = document.querySelector("#wether-description");
   weatherDescription.innerHTML = currentData.weather[0].description;
   let humidity = currentData.humidity;
@@ -44,11 +47,8 @@ function updateCityData(city, country) {
   countryName.innerHTML = country;
 }
 function changeWeatherData(lat, lon) {
-  let unit = document.querySelector("#celsius").classList.contains("active")
-    ? "metric"
-    : "imperial";
   axios
-    .get(`${getBaseWeatherUrl()}&lat=${lat}&lon=${lon}&units=${unit}`)
+    .get(`${getBaseWeatherUrl()}&lat=${lat}&lon=${lon}&units=metric`)
     .then(updateWeatherData);
 }
 function setWeather(response) {
@@ -67,10 +67,10 @@ function changeCityName(event) {
   axios.get(`${getBaseGeoUrl()}&q=${input.value}`).then(setWeather);
 }
 
-function convertToUnits(value, units) {
+function convertToUnits(celsiusTemperatura, units) {
   return units === "fahrenheit"
-    ? Math.round((value * 9) / 5 + 32)
-    : Math.round(((value - 32) * 5) / 9);
+    ? Math.round((celsiusTemperatura * 9) / 5 + 32)
+    : Math.round(celsiusTemperatura);
 }
 
 function changeUnits(event) {
@@ -85,8 +85,8 @@ function changeUnits(event) {
     unit.classList.add("hand");
     // change current temperatura
     let currentTemperatura = document.querySelector("#current-temp");
-    let value = currentTemperatura.innerHTML;
-    currentTemperatura.innerHTML = convertToUnits(value, event.target.id);
+
+    currentTemperatura.innerHTML = convertToUnits(temp, event.target.id);
     let currentUnits = document.querySelector("#current-units");
     if (event.target.id === "fahrenheit") currentUnits.innerHTML = "°F";
     else currentUnits.innerHTML = "°C";
@@ -152,6 +152,8 @@ function setCurrentDayData() {
     minute: "2-digit",
   });
 }
+
+let temp = null;
 
 setInitialWeaterData("Kharkiv");
 setCurrentDayData();
