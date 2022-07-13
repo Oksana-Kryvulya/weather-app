@@ -78,3 +78,6 @@ p {
 .icon-image {
   text-align: center;
 }
+.description:first-letter {
+  text-transform: capitalize;
+}

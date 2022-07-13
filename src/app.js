@@ -37,6 +37,8 @@ function updateCurrentWeather(currentData) {
 }
 function updateWeatherData(response) {
   updateCurrentWeather(response.data.current);
+  console.log(response.data);
+  setCurrentDayData(response.data.current.dt * 1000);
 }
 function updateCityData(city, country) {
   let cityNameP = document.querySelector("#city");
@@ -129,8 +131,9 @@ function initListeners() {
   meterUnitsCelsius.addEventListener("click", changeUnits);
   meterUnitsFahrenheit.addEventListener("click", changeUnits);
 }
-function setCurrentDayData() {
-  let date = new Date();
+function setCurrentDayData(timestamp) {
+  let date = new Date(timestamp);
+  console.log(date);
   let weekDays = [
     "Sunday",
     "Monday",
@@ -156,5 +159,4 @@ function setCurrentDayData() {
 let temp = null;
 
 setInitialWeaterData("Kharkiv");
-setCurrentDayData();
 initListeners();
