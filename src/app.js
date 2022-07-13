@@ -37,7 +37,6 @@ function updateCurrentWeather(currentData) {
 }
 function updateWeatherData(response) {
   updateCurrentWeather(response.data.current);
-  console.log(response.data);
   setCurrentDayData(response.data.current.dt * 1000);
 }
 function updateCityData(city, country) {
@@ -66,7 +65,8 @@ function setWeather(response) {
 function changeCityName(event) {
   event.preventDefault();
   let input = document.querySelector("#input-city");
-  axios.get(`${getBaseGeoUrl()}&q=${input.value}`).then(setWeather);
+  if (input.value != "")
+    axios.get(`${getBaseGeoUrl()}&q=${input.value}`).then(setWeather);
 }
 
 function convertToUnits(celsiusTemperatura, units) {
@@ -133,7 +133,6 @@ function initListeners() {
 }
 function setCurrentDayData(timestamp) {
   let date = new Date(timestamp);
-  console.log(date);
   let weekDays = [
     "Sunday",
     "Monday",
