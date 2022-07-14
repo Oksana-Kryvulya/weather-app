@@ -11,13 +11,15 @@ function getApiKey() {
 function getBaseReverseGeoUrl() {
   return `https://api.openweathermap.org/geo/1.0/reverse?limit=1&appid=${getApiKey()}`;
 }
-
-function updateCurrentWeather(currentData) {
-  temp = currentData.temp;
-  let unit = document.querySelector("#celsius").classList.contains("active")
+function getUnits() {
+  return document.querySelector("#celsius").classList.contains("active")
     ? "celsius"
     : "fahrenheit";
-  let currentTempetature = convertToUnits(temp, unit);
+}
+function updateCurrentWeather(currentData) {
+  globalTemperaturaInCelsius = currentData.temp;
+  let unit = getUnits();
+  let currentTempetature = convertToUnits(globalTemperaturaInCelsius, unit);
   let currentTemperaturaElement = document.querySelector("#current-temp");
   currentTemperaturaElement.innerHTML = currentTempetature;
   let weatherDescription = document.querySelector("#wether-description");
@@ -38,6 +40,7 @@ function updateCurrentWeather(currentData) {
 function updateWeatherData(response) {
   updateCurrentWeather(response.data.current);
   setCurrentDayData(response.data.current.dt * 1000);
+  updateForecastWeather(response.data.daily);
 }
 function updateCityData(city, country) {
   let cityNameP = document.querySelector("#city");
@@ -74,7 +77,16 @@ function convertToUnits(celsiusTemperatura, units) {
     ? Math.round((celsiusTemperatura * 9) / 5 + 32)
     : Math.round(celsiusTemperatura);
 }
-
+function changeForecastUnits(units) {
+  let weekForecastDayElement = document.querySelectorAll(".max-temperatura");
+  let weekForecastNightElement = document.querySelectorAll(".min-temperatura");
+  weekForecastDayElement.forEach(function (day, index) {
+    day.innerHTML = convertToUnits(globalForecastTemperaturaMax[index], units);
+  });
+  weekForecastNightElement.forEach(function (day, index) {
+    day.innerHTML = convertToUnits(globalForecastTemperaturaMin[index], units);
+  });
+}
 function changeUnits(event) {
   event.preventDefault();
   let isActive = event.target.classList.contains("active");
@@ -88,7 +100,11 @@ function changeUnits(event) {
     // change current temperatura
     let currentTemperatura = document.querySelector("#current-temp");
 
-    currentTemperatura.innerHTML = convertToUnits(temp, event.target.id);
+    currentTemperatura.innerHTML = convertToUnits(
+      globalTemperaturaInCelsius,
+      event.target.id
+    );
+    changeForecastUnits(event.target.id);
     let currentUnits = document.querySelector("#current-units");
     if (event.target.id === "fahrenheit") currentUnits.innerHTML = "°F";
     else currentUnits.innerHTML = "°C";
@@ -131,7 +147,7 @@ function initListeners() {
   meterUnitsCelsius.addEventListener("click", changeUnits);
   meterUnitsFahrenheit.addEventListener("click", changeUnits);
 }
-function setCurrentDayData(timestamp) {
+function formatDay(timestamp) {
   let date = new Date(timestamp);
   let weekDays = [
     "Sunday",
@@ -142,8 +158,12 @@ function setCurrentDayData(timestamp) {
     "Friday",
     "Saturday",
   ];
-
   let weekDay = weekDays[date.getDay()];
+  return weekDay;
+}
+function setCurrentDayData(timestamp) {
+  let date = new Date(timestamp);
+  let weekDay = formatDay(timestamp);
   let todayWeekDay = document.querySelector("#weekday");
   todayWeekDay.innerHTML = weekDay;
   let todayDate = document.querySelector("#current-date");
@@ -155,7 +175,47 @@ function setCurrentDayData(timestamp) {
   });
 }
 
-let temp = null;
+function updateForecastWeather(dailyForecastArray) {
+  let forecastElement = document.querySelector("#forecast");
+  let units = getUnits();
+  let forecastHTML = "";
+  dailyForecastArray.forEach(function (day, index) {
+    if (index < 7) {
+      forecastHTML =
+        forecastHTML +
+        `
+    <div class="row">
+      <div class="col-5 week-day">${formatDay(day.dt * 1000)}</div>
+      <div class="col-5 day-temperatura">
+        <span class="max-temperatura">${convertToUnits(
+          day.temp.max,
+          units
+        )}</span>° /
+        <span class="min-temperatura">${convertToUnits(
+          day.temp.min,
+          units
+        )}</span>°
+      </div>
+      <div class="col-2 day-icon">
+        <img
+          src="http://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png"
+          height="50"
+          alt="Clear"
+          id="icon"
+        />
+      </div>
+    </div>
+  `;
+      globalForecastTemperaturaMax[index] = day.temp.max;
+      globalForecastTemperaturaMin[index] = day.temp.min;
+    }
+  });
+  forecastElement.innerHTML = forecastHTML;
+}
+
+let globalTemperaturaInCelsius = null;
+let globalForecastTemperaturaMax = new Array(7);
+let globalForecastTemperaturaMin = new Array(7);
 
 setInitialWeaterData("Kharkiv");
 initListeners();

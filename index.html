@@ -54,37 +54,48 @@
               <span id="current-time">10 : 50 am</span>
             </p>
           </div>
-          <div class="col">
+          <div class="col-2">
             <p class="units">
               <span class="active" id="celsius">°C </span> |
               <span class="hand" id="fahrenheit">°F</span>
             </p>
           </div>
         </div>
-        <div class="current-weather">
-          <h1 id="city-h1">Kharkiv</h1>
-          <h2>
-            <span id="weekday">Sun</span><span id="current-date">19</span>
-          </h2>
-          <h1>
-            <span id="current-temp">24</span>
-            <span id="current-units">°C</span>
-          </h1>
-          <div class="icon-image">
-            <img
-              src="http://openweathermap.org/img/wn/01d@2x.png"
-              style="border: 20px"
-              alt="Clear"
-              id="icon"
-            />
+        <div class="row">
+          <div class="col-md">
+            <div class="current-weather" style="height: 25rem">
+              <h1 id="city-h1">Kharkiv</h1>
+              <h2>
+                <span id="weekday">Sun</span><span id="current-date">19</span>
+              </h2>
+              <h1>
+                <span id="current-temp">24</span>
+                <span id="current-units">°C</span>
+              </h1>
+              <div class="icon-image">
+                <img
+                  src="http://openweathermap.org/img/wn/01d@2x.png"
+                  style="border: 20px"
+                  alt="Clear"
+                  id="icon"
+                />
+              </div>
+              <h3 class="description" id="wether-description">
+                weather discription
+              </h3>
+              <p class="weather-data">
+                Humidity: <span id="humidity">35</span>%, Wind:
+                <span id="wind">5.36</span> km/h
+              </p>
+            </div>
           </div>
-          <h3 class="description" id="wether-description">
-            weather discription
-          </h3>
-          <p class="weather-data">
-            Humidity: <span id="humidity">35</span>%, Wind:
-            <span id="wind">5.36</span> km/h
-          </p>
+          <div class="col-md">
+            <div
+              class="forecast-weather"
+              style="height: 25rem"
+              id="forecast"
+            ></div>
+          </div>
         </div>
       </div>
       <a

@@ -32,7 +32,7 @@ p {
 }
 
 .weather-app {
-  max-width: 600px;
+  max-width: 1000px;
 }
 .input-window {
   margin: 100px auto 10px;
@@ -53,9 +53,29 @@ p {
   background: #7695ce;
   box-shadow: 3px 3px rgba(39, 39, 44, 0.2);
 }
-
+.forecast-weather {
+  margin: 10px auto;
+  padding: 20px;
+  border: 1px solid #dadada;
+  border-radius: 10px;
+  background: linear-gradient(#f7dd95, #d788bf);
+}
+.day-temperatura,
+.week-day {
+  height: 50px;
+  font-size: 25px;
+  color: #27296d;
+}
+.day-icon {
+  position: relative;
+  bottom: 7px;
+}
+.min-temperatura {
+  opacity: 0.7;
+}
 .units {
   color: white;
+  text-align: right;
 }
 .current-weather {
   margin: 10px auto;
