@@ -33,7 +33,7 @@ function updateCurrentWeather(currentData) {
   let iconElement = document.querySelector("#icon");
   iconElement.setAttribute(
     "src",
-    `http://openweathermap.org/img/wn/${currentData.weather[0].icon}@2x.png`
+    `https://openweathermap.org/img/wn/${currentData.weather[0].icon}@2x.png`
   );
   iconElement.setAttribute("alt", currentData.weather[0].description);
 }
@@ -198,7 +198,7 @@ function updateForecastWeather(dailyForecastArray) {
       </div>
       <div class="col-2 day-icon">
         <img
-          src="http://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png"
+          src="https://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png"
           height="50"
           alt="Clear"
           id="icon"
