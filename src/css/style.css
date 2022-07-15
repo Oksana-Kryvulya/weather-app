@@ -101,3 +101,17 @@ p {
 .description:first-letter {
   text-transform: capitalize;
 }
+
+@media (min-width: 1400px) {
+  .pt-xxl-5 {
+    padding-top: 6rem !important;
+  }
+}
+
+@media (max-width: 800px) {
+  .day-temperatura,
+  .week-day {
+    height: 50px;
+    font-size: 20px;
+  }
+}
